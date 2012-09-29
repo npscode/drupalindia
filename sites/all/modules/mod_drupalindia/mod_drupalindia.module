@@ -1,0 +1,327 @@
+<?php
+//http://www.developmenticon.com/
+
+/**
+ * @file
+ * The Hopson & Ruffet custom module to customize drupal core functionality.
+ */
+
+define('HR_HOMEPAGE_CALL_US_WEBFORM_ID', '8');
+define('HR_CLIENT_ID', '100404');
+define('HR_PASSWORD', 'K8&tr5*p'); //'K8&tr5*p';
+define('HR_WEBSERVICE_URL', 'https://secure.sawfishlogin.com/qa/WCFRESTWebService40/SawfishWebService');
+define('HR_WEBSERVICE_URI', 'https://secure.sawfishlogin.com/qa/WCFRESTWebService40/SawfishWebService/IFormIn/FormInput');
+define('DI_QUICK_CONTACT_WEBFORM_ID', '33');
+
+/**
+ * Implements hook_block_info().
+ */
+function mod_drupalindia_block_info() {
+
+  $blocks['homepage_banner'] = array(
+      'info' => t('Homepage Banner'),
+      'cache' => DRUPAL_NO_CACHE
+  );
+  $blocks['quick_contact'] = array(
+      'info' => t('Quick Contact'),
+      'cache' => DRUPAL_NO_CACHE
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function mod_drupalindia_block_view($delta = '') {
+  global $base_path;
+  $block = array();
+
+  switch ($delta) {
+    case 'homepage_banner':
+      $block['subject'] = t('Homepage Banner');
+      
+      drupal_add_js(drupal_get_path('module', 'mod_drupalindia') . "/js/carousel.js");
+      drupal_add_js(drupal_get_path('module', 'mod_drupalindia') . "/js/home.js");
+//      drupal_add_js(drupal_get_path('module', 'mod_drupalindia') . "/js/global.js");
+      
+      drupal_add_js(array('loader_path' => $base_path . path_to_theme() .'/images/mod_drupalindia/loading.gif'), "setting");
+      
+      $homepage_banner = mod_drupalindia_homepage_banners_fetch();
+      drupal_add_js(array('slide_timeout' => variable_get('slide_timeout')), "setting");
+      $block['content'] = theme('homepage_banner', array('banners' => $homepage_banner));
+    break;
+   case 'quick_contact':
+     // Adding Where to buy form if clicked on some region in map.
+     $node_detail = node_load(DI_QUICK_CONTACT_WEBFORM_ID);
+     // Check if this user has a draft for this webform.
+     $is_draft = FALSE;
+     $submission = array();
+     $output = drupal_get_form('webform_client_form_' . DI_QUICK_CONTACT_WEBFORM_ID, $node_detail, $submission, $is_draft);
+     $quick_contact = drupal_render($output); 
+     $block['content'] = $quick_contact;//$block['content'] = theme('homepage_quick_contact', array('quick_contact' => $quick_contact));
+    break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function mod_drupalindia_theme() {
+  return array(
+    'homepage_banner' => array(
+      'variables' => array('banners' => NULL),
+      'template' => 'templates/homepage-banner',
+    ),
+    'homepage_quick_contact' => array(
+      'variables' => array('quick_contact' => NULL),
+      'template' => 'templates/homepage-quick-contact',
+    )
+  );
+}
+// afterbuild function
+function mod_drupalindia_node_form_after_build($form) {
+    // We want this on a specific field
+    $form['body']['und']['0']['format']['#access'] = FALSE;
+    return $form;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function mod_drupalindia_form_alter(&$form, &$form_state, $form_id) {
+  // Alter homepage banner content type for adding slide timeout field.
+  if ($form_id == 'node_type_form' && $form['type']['#default_value'] == 'homepage_banner') {
+    $time_out = variable_get('slide_timeout');
+    $default_timeout = isset($time_out) ? $time_out : 5000;
+    $form['slide_timeout'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Slide Timeout'),
+      '#description' => 'In miliseconds',  
+      '#default_value' => $default_timeout,
+      '#size' => 30,
+      '#maxlength' => 128,
+      '#required' => TRUE,
+    );
+
+    $submit_array = 'mod_drupalindia_set_slider_timeout';
+    $form['#submit'][] = $submit_array;
+  }
+  
+  if ($form_id == 'webform_client_form_' . DI_QUICK_CONTACT_WEBFORM_ID) {
+    //p($form);
+    $form['submitted']['first_name']['#default_value'] = 'First Name';
+    $form['submitted']['first_name']['#attributes'] = array("onfocus" => "if (this.value == 'First Name') {this.value = '';}",  "onblur" => "if (this.value == '')  {this.value = 'First Name';}");
+
+    $form['submitted']['last_name']['#default_value'] = 'Last Name';
+    $form['submitted']['last_name']['#attributes'] = array("class" => array("sec"), "onfocus" => "if (this.value == 'Last Name') {this.value = '';}",  "onblur" => "if (this.value == '')  {this.value = 'Last Name';}");
+
+    $form['submitted']['email']['#default_value'] = 'Email Address';
+    $form['submitted']['email']['#attributes'] = array("onfocus" => "if (this.value == 'Email Address') {this.value = '';}",  "onblur" => "if (this.value == '')  {this.value = 'Email Address';}");
+    
+    $form['submitted']['contact_no']['#default_value'] = 'Contact No';
+    $form['submitted']['contact_no']['#attributes'] = array("class" => array("sec"), "onfocus" => "if (this.value == 'Contact No') {this.value = '';}",  "onblur" => "if (this.value == '')  {this.value = 'Contact No';}");
+
+    $form['submitted']['website']['#default_value'] = 'Website';
+    $form['submitted']['website']['#attributes'] = array("class" => array("sec"), "onfocus" => "if (this.value == 'Website') {this.value = '';}",  "onblur" => "if (this.value == '')  {this.value = 'Website';}");
+
+    $form['submitted']['requirements']['#default_value'] = 'Mention Your requirement.';
+    $form['submitted']['requirements']['#attributes'] = array("onfocus" => "if (this.value == 'Mention Your requirement.') {this.value = '';}",  "onblur" => "if (this.value == '')  {this.value = 'Mention Your requirement.';}");
+    
+    $form['actions']['submit']['#attributes'] = array("class" => array("btn"));
+    $form['actions']['submit']['#value'] = 'Submit';
+  }
+}
+
+///**
+// * Custom Validate function to validate webform input data.
+// * 
+// * @param type $form
+// * @param type $form_state 
+// */
+//function mod_drupalindia_validate_phone($form, &$form_state) {
+//  $phone_number = $form_state['values']['submitted']['phone'];
+//  
+//  if (isset($phone_number) && $phone_number != '') {
+//    if (!checkUKTelephone ($phone_number, $errorNo, $errorText) ) {
+//      form_set_error(t('phone_error'), t($errorText));
+//    }
+//  }
+//}
+
+/**
+ * Custom submit function for adding variable for slide timeout value.
+ * 
+ * @param type $form
+ * @param type $form_state 
+ */
+function mod_drupalindia_set_slider_timeout($form, &$form_state) {
+  variable_set('slide_timeout', $form_state['values']['slide_timeout']);
+}
+
+/**
+ * Implements hook_webform_submission_insert().
+ */
+function mod_drupalindia_webform_submission_insert($node, $submission) {
+  
+}
+
+/**
+ * Helper function to generate homepage banner array.
+ * 
+ * @return array
+ */
+function mod_drupalindia_homepage_banners_fetch() {
+  $homepage_array = $button_array = array();
+  $view = views_get_view('homepage_slide_show');
+  $view->init();
+  $view->set_offset(0);
+  $view->set_items_per_page(0);
+  $view->execute();
+  $homepage_banners = $view->result;
+  $view->destroy();
+
+  if (isset($homepage_banners) && !empty($homepage_banners)) {
+    foreach ($homepage_banners as $key => $val) {
+      $temp = array();
+      $body = $val->field_body[0]['raw']['value'];
+      $body_array = explode('/', $body);
+      $temp['text_one'] = $body_array[0];
+      $temp['text_two'] = $body_array[1];
+      $temp['text_three'] = $body_array[2];
+      $temp['banner_image'] = file_create_url($val->field_field_banner_image[0]['raw']['uri']);
+      $homepage_array[] = $temp;
+    }
+  }
+  return $homepage_array;
+}
+
+/**
+ * Fucntion to print Arrays and Object in better format.
+ * @param Array, Obj $a 
+ */
+function p($a) {
+  print "<pre>"; print_r($a); exit;
+}
+
+/*==============================================================================
+
+Description:   Used to check the validity of a UK telephone number
+Version:       V1.0
+
+Version:       V1.1  4th August 2006
+               Updated to include 03 numbers being added by Ofcom in early 2007.
+
+Version:       V1.2  9th January 2007
+               Isle of Man mobile numbers catered for 
+
+Version:       V1.3  6th November 2007
+               Support for mobile numbers improved - thanks to Natham Lisgo
+
+Version:       V1.4  14th April 2008
+               Numbers allocated for drama excluded - thanks to David Legg
+
+Version:       V1.5  8th February 2012
+               Updated to use PCRE rather than POSIX regular expressions
+  
+Parameters:    $strTelephoneNumber - telephone number to be checked. This is
+                                     returned reformatted if valid.
+               $intError           - Error number
+                                     0 - valid telephone number
+                                     1 - no number provided
+                                     2 - Country code invalidly provided
+                                     3 - 10 or 11 digits not provided
+                                     4 - 0 not provided as first digit
+                                     5 - invalid or inappropriate number
+                $strError           - Error string - empty if valid
+
+This routine checks the value of the string variable specified by the parameter for a valid UK 
+telphone number. It returns true for a valid number and false for an invalid number.
+
+The definition of a valid telephone number has been taken from:
+
+http://stakeholders.ofcom.org.uk/binaries/telecoms/numbering/numplan201210.pdf
+
+All inappropriate telephone numbers are disallowed (e.g. premium lines, sex lines, radio-paging 
+services etc.)
+  
+Example call:
+  
+    if (!checkUKTelephone ($telNo, $errorNo, $errorText) ) {
+      echo $errorText & '<br>';
+    }
+                    
+------------------------------------------------------------------------------*/
+
+function checkUKTelephone(&$strTelephoneNumber, &$intError, &$strError) {
+  
+  // Copy the parameter and strip out the spaces
+  $strTelephoneNumberCopy = str_replace (' ', '', $strTelephoneNumber);
+
+  // Convert into a string and check that we were provided with something
+  if (empty($strTelephoneNumberCopy)) {
+    $intError = 1;
+    $strError = 'Telephone number not provided';
+    return false;
+  }
+  
+  // Don't allow country codes to be included (assumes a leading "+") 
+  if (preg_match('/^(\+)[\s]*(.*)$/',$strTelephoneNumberCopy)) {
+    $intError = 2;
+    $strError = 'UK telephone number without the country code, please';
+    return false;
+  }
+  
+  // Remove hyphens - they are not part of a telephone number
+  $strTelephoneNumberCopy = str_replace ('-', '', $strTelephoneNumberCopy);
+  
+  // Now check that all the characters are digits
+  if (!preg_match('/^[0-9]{10,11}$/',$strTelephoneNumberCopy)) {
+    $intError = 3;
+    $strError = 'UK telephone numbers should contain 10 or 11 digits';
+    return false;
+  }
+  
+  // Now check that the first digit is 0
+  if (!preg_match('/^0[0-9]{9,10}$/',$strTelephoneNumberCopy)) {
+    $intError = 4;
+    $strError = 'The telephone number should start with a 0';
+    return false;
+  }		
+  
+  // Check the string against the numbers allocated for dramas
+  
+  // Expression for numbers allocated to dramas
+	
+  $tnexp[0] =  '/^(0113|0114|0115|0116|0117|0118|0121|0131|0141|0151|0161)(4960)[0-9]{3}$/';
+  $tnexp[1] =  '/^02079460[0-9]{3}$/';
+  $tnexp[2] =  '/^01914980[0-9]{3}$/';
+  $tnexp[3] =  '/^02890180[0-9]{3}$/';
+  $tnexp[4] =  '/^02920180[0-9]{3}$/';
+  $tnexp[5] =  '/^01632960[0-9]{3}$/';
+  $tnexp[6] =  '/^07700900[0-9]{3}$/';
+  $tnexp[7] =  '/^08081570[0-9]{3}$/';
+  $tnexp[8] =  '/^09098790[0-9]{3}$/';
+  $tnexp[9] =  '/^03069990[0-9]{3}$/';
+	
+  foreach ($tnexp as $regexp) {  
+    if (preg_match($regexp,$strTelephoneNumberCopy, $matches)) {
+      $intError = 5;
+      $strError = 'The telephone number is either invalid or inappropriate';
+      return false;
+    }
+  }
+  
+  // Finally, check that the telephone number is appropriate.
+  if (!preg_match('/^(01|02|03|05|070|071|072|073|074|075|07624|077|078|079)[0-9]+$/',$strTelephoneNumberCopy)) {
+    $intError = 5;
+    $strError = 'The telephone number is either invalid or inappropriate';
+    return false;
+  }
+  
+  // Seems to be valid - return the stripped telephone number
+  $strTelephoneNumber = $strTelephoneNumberCopy;
+  $intError = 0;
+  $strError = '';
+  return true;  
+}

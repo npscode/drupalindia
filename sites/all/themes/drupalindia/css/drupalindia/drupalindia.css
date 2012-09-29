@@ -1,0 +1,456 @@
+@charset "utf-8";
+/* CSS Document */
+* { margin: 0; padding: 0; }
+a { text-decoration: none; }
+a img { border: none; }
+body {
+	background: #f0f5f9;
+	font-family: Arial;
+	font-size: 12px;
+}
+#master {
+	margin: 0 auto;
+	width: 1000px;
+}
+#container {
+	float: left;
+	width: 100%;
+	background: #fff;
+	border: 1px solid #e2e6ef;
+}
+#header {
+	float: left;
+	width: 100%;
+	padding: 0 0 36px;
+}
+#header em {
+	float: left;
+	padding: 44px 0 0 9px;
+}
+#header span {
+	float: right;
+	margin: 0 9px 0 0;
+	height: 44px;
+	background: url(../../images/drupalindia/request.jpg) repeat-x;
+}
+#header span tt { float: left; width: 11px; height: 44px; background:url(../../images/drupalindia/req_left.jpg) no-repeat; }
+#header span tt.right { background:url(../../images/drupalindia/req_right.jpg) no-repeat; }
+#header span b {
+	float: left;
+	padding: 10px 15px 0;
+	color: #fff;
+	font-size: 16px;
+}
+#header span b a { color: #fff; }
+#header span b a:hover { color: #e0dfde; }
+#nav {
+	float: left;
+	padding: 0 11px;
+	width: 978px;
+}
+#nav ul {
+	float: left;
+	display: inline;
+}
+#nav ul li {
+	float: left;
+	list-style-type: none;
+	border: 1px solid #b0281a;
+	margin: 0 2px 0 0;
+	background: url(../../images/drupalindia/nav.jpg) repeat-x;
+}
+#nav ul li a {
+	float: left;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	padding: 8px 15px;
+	text-transform: uppercase;
+}
+#nav ul li:hover { border: 1px solid #cf6051; }
+#dnav ul li:hover a { padding: 9px 16px; }
+#nav ul li a.active { border: 1px solid #fff; padding: 7px 14px; }
+.social_icons {
+	float: right;
+/*	width: 251px;*/
+	padding: 5px 0 0;
+}
+.social_icons label {
+	float: left;
+	font-family: georgia;
+	font-size: 14px;
+	color: #cf412f;
+	padding: 3px 5px 0 0;
+}
+.social_icons em {
+	float: left;
+	padding: 0 4px 0 0;
+}
+#content {
+/*	float: left;*/
+	width: 578px;
+	padding: 10px 0px;
+}
+#content_front {
+	float: left;
+	width: 978px;
+	padding: 10px 11px;
+}
+.bannerbox {
+	float: left;
+	width: 100%;
+	padding: 9px 0 0;
+	height: 304px;
+	background: url(../../images/drupalindia/bannerbg.jpg) no-repeat;
+}
+.banner_left {
+	float: left;
+	padding: 0 0 0 10px;
+}
+.banner_right {
+	float: right;
+	width: 240px;
+	padding: 0 5px 0 0;
+}
+
+
+.banner{ position:relative; display:block; float: left;padding: 0 0 0 10px;}
+.banner:after {-moz-transform: rotate(3deg);left: auto;right: 10px;}
+.banner:before, .banner:after {background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7); bottom: 12px;
+-webkit-box-shadow: 0 15px 10px rgba(0,0,0, 0.7); -moz-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);-webkit-transform: rotate(-3deg); -moz-transform: rotate(-3deg);-o-transform: rotate(-3deg);
+-ms-transform: rotate(-3deg); content: ""; left: 10px; max-width: 300px; position: absolute; top: 80%;width: 50%;z-index: -1;}
+.banner:after{-webkit-transform: rotate(3deg);-moz-transform: rotate(3deg);-o-transform: rotate(3deg);-ms-transform: rotate(3deg);transform: rotate(3deg);right: 10px;left: auto;}	
+.banner .panel{width:700px; height:280px; float:left; position:relative}
+.banner .panel img{ float: left; }
+.banner .panel span { float: left; z-index: 1000; position: relative;font-size: 18px; color: red;}
+.banner ul.control{position:absolute; left:50%; bottom:15px; z-index:9999}
+.banner ul.control li{display:inline}
+.banner ul.control a{background:url(../../images/drupalindia/dot_circle.png) no-repeat 0 0; width:13px; height:13px; display:inline-block; margin-right:8px}
+.banner ul.control a span{display:none}
+.banner ul.control a.selected{background-position:0 bottom}
+
+
+
+.contactbox {
+	float: left;
+	width: 100%;
+}
+#block-views-testimonial-block li.pager-current {display: none;}
+#block-views-testimonial-block li.pager-next a {color: transparent; background:url(../../images/drupalindia/rightarrow.jpg) no-repeat 0 0;}
+#block-views-testimonial-block li.pager-next a:hover {color: transparent;background:url(../../images/drupalindia/rightarrow_hover.jpg) no-repeat 0 0;}
+#block-views-testimonial-block li.pager-previous a {color: transparent;background:url(../../images/drupalindia/leftarrow.jpg) no-repeat 0 0;}
+#block-views-testimonial-block li.pager-previous a:hover {color: transparent;background:url(../../images/drupalindia/leftarrow_hover.jpg) no-repeat 0 0;}
+#block-views-testimonial-block h2,
+#block-views-featured_work-block h2,
+.contactbox h1 {
+	float: left;
+	font-size: 14px;
+	color: #fff;
+	width: 222px;
+	padding: 7px 8px;
+	height: 19px;
+	font-weight: bold;
+	border: 1px solid #b0281a;
+	background:url(../../images/drupalindia/nav.jpg) repeat-x;
+}
+/*
+#sidebar-second h2, #sidebar-first h2 {
+	float: left;
+	font-size: 14px;
+	color: #fff;
+	width: 240px;
+	padding: 7px 0px;
+	height: 19px;
+	font-weight: bold;
+	border: 1px solid #b0281a;
+	background:url(../../images/drupalindia/nav.jpg) repeat-x;
+}*/
+
+#block-views-testimonial-block h2, #block-views-featured_work-block h2 { width: 466px; }
+
+#block-views-testimonial-block div.content{
+ 
+}
+#block-views-testimonial-block .content,
+#block-views-featured_work-block .content,
+#block-mod_drupalindia-quick_contact div.contactsubbox {
+	float: left;
+	width: 218px;
+	padding: 0 10px 5px;
+	margin: 2px 0 0;
+	background: #fff;
+	border: 1px solid #b4b3b3;
+}
+
+/*#sidebar-first div.content,
+#sidebar-second div.content{
+	float: left;
+	width: 240px;
+	padding: 0 10px 5px;
+	margin: 2px 0 0;
+	background: #fff;
+	border: 1px solid #b4b3b3;
+}*/
+#block-views-testimonial-block .content, #block-views-featured_work-block .content { width: 472px; padding: 5px; }
+.contactbox .contactsubbox span {
+	float: left;
+	width: 100%;
+	padding: 10px 0 0;
+}
+/*input.btn{ margin-top:10px; margin-bottom: 10px;}*/
+
+input.btn{background:url("../../images/drupalindia/submit_rep.jpg") repeat-x scroll 0 0 transparent; border:1px solid #3A3A3A; margin-top:10px; margin-bottom: 10px; color:#fff !important; cursor: pointer; overflow: visible;}
+input.btn:hover{background:url("../../images/drupalindia/submit_rep.jpg") repeat-x scroll 0 0 transparent; border:1px solid #252525; margin-top:10px; margin-bottom: 10px; color:#fff !important; cursor: pointer; overflow: visible;}
+
+.contactbox .contactsubbox textarea,
+.contactbox .contactsubbox select,
+.contactbox .contactsubbox input {
+	float: left;
+	width: 95px;
+	border: 1px solid #b4b3b3;
+	padding: 4px 5px;
+	color: #a5a5a5;
+}
+.contactbox .contactsubbox select { width: 107px;padding: 3px 5px;}
+.contactbox .contactsubbox textarea { width: 204px; font-family: arial; font-size: 12px; height: 68px; }
+.contactbox .contactsubbox input.sec {
+	margin: 0 0 0 2px;
+}
+.contactbox .contactsubbox label {
+	float: left;
+	height: 29px;
+	background: url(../../images/drupalindia/submit_rep.jpg) repeat-x;
+}
+
+.contactbox .contactsubbox label.error {
+/*	float: left;
+	height: 0px;
+	background: none !important;*/
+display: none !important;
+}
+.contactbox .contactsubbox input.error {
+	border :2px solid red !important;
+}
+.contactbox .contactsubbox label tt {
+	float: left;
+	width: 8px;
+	height: 29px;
+	background: url(../../images/drupalindia/submit_left.jpg) no-repeat;
+}
+.contactbox .contactsubbox label tt.right { background: url(../../images/drupalindia/submit_right.jpg) no-repeat; }
+.contactbox .contactsubbox label b {
+	float: left;
+	color: #fff;
+	font-size: 12px;
+	padding: 7px 10px 0;
+}
+.contactbox .contactsubbox label b a { color: #fff; }
+.contactbox .contactsubbox label b a:hover { color: #e0dfde; }
+.contentbox {
+	float: left;
+	width: 100%;
+	padding: 10px 0 0;
+}
+
+.contentsubbox tr td {
+	float: left;
+	width: 210px;
+	height: 245px;
+	padding: 10px 15px 10px 10px;
+	font-size: 14px;
+	color: #494949;
+	font-family: Trebuchet MS;
+	background:url(../../images/drupalindia/box.jpg) no-repeat;
+ margin-left: 4px;
+ margin-right: 5px;
+}
+.contentsubbox tr td.col-last{
+ margin-right: 0px !important;
+}
+.contentsubbox tr td.col-first{
+ margin-left: 0px !important;
+}
+.contentsubmid { margin: 0 0 0 12px; }
+h2 {	
+	float: left;
+	width: 100%;
+	font-size: 16px;
+}
+h2 label { float: left; }
+h2 em { float: right; }
+
+.contentsubbox div.views-field-title {
+ float: left;
+	width: 76%;
+ font-weight: bold;
+	font-size: 16px;
+}
+.contentsubbox div.views-field-field-image {
+ float: right;
+}
+
+.contentsubbox div.field-content {
+	float: left;
+	width: 100%;
+	text-align: justify;
+	padding: 5px 0 0;
+ font-family: Trebuchet MS;
+ font-size: 14px;
+}
+.contentsubbox a.views-more-link {
+
+	height: 15px;
+  background: url(../../images/drupalindia/darkarrow.jpg) no-repeat 0 3px;
+   color: #494949; text-decoration: none; float: right;
+}
+.contentsubbox a.views-more-link:hover {color: #ec8611; }
+.contentsubbox span.active { color:#ec8611;  }
+.contentsubbox span a { color: #494949; text-decoration: none; }
+.contentsubbox span.active a,
+.contentsubbox span a:hover { color: #ec8611; }
+.contentsubbox span i {
+	float: right;
+	width: 12px;
+	height: 15px;
+	background: url(../../images/drupalindia/darkarrow.jpg) no-repeat 0 3px;
+}
+.contentsubbox span.active i { background: url(../../images/drupalindia/orangearrow.jpg) no-repeat 0 3px; }
+.contentsubbox span label {
+	float: right;
+	font-size: 12px;
+	padding: 0 0 0 5px;
+}
+#block-views-testimonial-block {
+	float: left;
+	width: 486px;
+}
+#block-views-featured_work-block {
+	float: left;
+	width: 486px;
+ padding: 0 0 0 6px;
+}
+#block-views-testimonial-block div.content div.views-field-field-user-image {
+	float: left;
+	width: 108px;
+	height: 108px;
+	padding: 5px;
+	border: 1px solid #b4b3b3;
+}
+#block-views-testimonial-block div.content div.views-field-body {
+	float: right;
+	width: 324px;
+	padding: 0 10px 0 0;
+ color: #494949;
+	text-align: justify;
+}
+
+#block-views-testimonial-block a.views-more-link {float:right;}
+#block-views-testimonial-block div.item-list {float:right; margin-top: -15px;}
+#block-views-testimonial-block div.views-field-view-node {margin-left: 138px;}
+.testimonials .testbox span label {
+	float: left;
+	color: #494949;
+	text-align: justify;
+	padding: 0 0 6px;
+}
+.testimonials .testbox span label a { color: #008aff;}
+.testimonials .testbox span label a:hover { text-decoration: underline;}
+.testimonials .testbox span tt {
+	float: right;
+	padding: 0 0 0 5px;
+}
+.featured { padding: 0 0 0 6px; }
+#block-views-featured_work-block div.content { text-align: center !important; height: 119px; }
+.bottomcontent {
+	float: left;
+	width: 964px;
+	padding: 5px;
+	font-size: 14px;
+	border: 1px solid #b4b3b3;
+}
+.bottomcontent span {
+	float: left;
+	width: 100%;
+	text-align:justify;
+	color: #494949;
+	padding: 0 0 5px;
+}
+.footer {
+	float: left;
+	width: 100%;
+	background: #c33826;
+	border-top: 4px solid #860f00;
+	padding: 10px 0;
+}
+.btmfoot { border-top: 2px solid #860f00; }
+.footer_mid {
+	margin: 0 auto;
+	width: 1000px;
+}
+.footer_mid div.region-footer{float: left;}
+.footer_mid div.region-footer ul li{list-style-image: none;}
+.footerbox {
+	float: left;
+	width: 196px;
+	padding: 10px 20px;
+	background: url(../../images/drupalindia/footer_sep.jpg) no-repeat right top;
+}
+.footerbox label,
+.footerbox b {
+	float: left;
+	width: 100%;
+	padding: 0 0 5px;
+	color: #460101;
+	font-size: 13px;
+}
+.footerbox label a { color: #fff; }
+.footerbox label a:hover { color: #ffc000; }
+.footerfirst { padding: 0 0 0 93px;  }
+.footerlast { background: none; }
+.footer_mid ul {
+	float: left;
+	display: inline;
+}
+.footer_mid ul li {
+	float: left;
+	list-style-type: none;
+	color: #fff;
+	padding: 0 5px;
+}
+.footer_mid ul li a {
+	color: #fff;
+	text-decoration: none;
+}
+.footer_mid ul li a:hover { text-decoration: underline; }
+.footer_mid span { float: right; color: #fff; }
+#block-mod_drupalindia-homepage_banner {float: left;}
+.form-item, .form-actions{margin-bottom: 0px !important; margin-top: 0px !important; }
+.banner ul.pagination{position:absolute; left:3%; top:10px; z-index:9999}
+.banner ul.pagination a{background:url(../../images/drupalindia/dot_circle.png) no-repeat 0 0; width:13px; height:13px; display:inline-block; margin-right:8px}
+.banner ul.pagination a span{display:none}
+.banner ul.pagination a.selected{background-position:0 -14px}
+ul.control{list-style:none;}
+.panel-txt{position:absolute; right:15px; width:478px; top:10px; z-index:99; font-size: 24px !important; color: #000; font-weight: bold; font-family: verdana;}
+.panel-txt .color-red{color: #d94836 !important; font-size: 24px !important;font-weight: bold; font-family: verdana;}
+.footer ul li.leaf{list-style-image: none;}
+
+#sidebar-first .block, #sidebar-two .block {
+ background-color: #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    clear: both;
+    float: left;
+    margin-bottom: 20px;
+    width: 100%;
+}
+#sidebar-first .content{
+ background: url("../../images/drupalindia/line.png") repeat-x scroll 0 0 transparent;
+    clear: both;
+    float: left;
+}
+.page-contact #content #block-block-5 h3.block-title{
+ 
+}
+
+//http://www.pixelclever.com/how-theme-specific-blocks-drupal
+//http://atendesigngroup.com/contact

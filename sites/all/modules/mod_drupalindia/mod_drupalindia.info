@@ -1,0 +1,12 @@
+name = Drupal India dot US
+description = Custom module for managing custom functionality and features.
+package = Drupal India
+version = VERSION
+core = 7.x
+files[] = mod_drupalindia.module
+
+
+version = "7.12"
+project = "mod_drupalindia"
+datestamp = "1328134560"
+
