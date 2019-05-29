@@ -1,5 +1,5 @@
 <?php
-
+$a = 'delete';
 /**
  * Root directory of Drupal installation.
  */
